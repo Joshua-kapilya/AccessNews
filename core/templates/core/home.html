@@ -1,0 +1,97 @@
+{% extends "core/base.html" %}
+
+{% block title %}Zambia News{% endblock %}
+
+{% block content %}
+
+<!-- 🔴 BREAKING / TRENDING TICKER -->
+<div class="bg-red-600 text-white rounded-lg px-4 py-2 mb-6 overflow-hidden">
+    <div class="animate-marquee whitespace-nowrap font-medium">
+        {% for article in articles|slice:":5" %}
+            🔥 {{ article.title_rewritten }} &nbsp;&nbsp;&nbsp;
+        {% endfor %}
+    </div>
+</div>
+
+<style>
+@keyframes marquee {
+    0% { transform: translateX(100%); }
+    100% { transform: translateX(-100%); }
+}
+.animate-marquee {
+    display: inline-block;
+    animation: marquee 60s linear infinite;
+}
+</style>
+
+<!-- 📰 FEATURED HEADLINE -->
+{% if articles %}
+<a href="{% url 'article_detail' articles.0.id %}" class="block mb-10 group">
+    <div class="relative rounded-3xl overflow-hidden shadow-lg">
+        {% if articles.0.image_url %}
+        <img src="{{ articles.0.image_url }}" class="w-full h-[320px] object-cover">
+        {% endif %}
+        <div class="absolute inset-0 bg-gradient-to-t from-black/70 to-transparent p-6 flex items-end">
+            <div>
+                <span class="bg-red-600 text-white px-3 py-1 rounded-full text-xs font-semibold">
+                    FEATURED
+                </span>
+                <h2 class="text-3xl font-bold text-white mt-3 group-hover:underline">
+                    {{ articles.0.title_rewritten }}
+                </h2>
+                <p class="text-gray-200 mt-2 max-w-2xl line-clamp-2">
+                    {{ articles.0.description_rewritten }}
+                </p>
+            </div>
+        </div>
+    </div>
+</a>
+{% endif %}
+
+<!-- 🧱 MAIN GRID -->
+<div class="grid grid-cols-1 lg:grid-cols-4 gap-8">
+
+    <!-- 📰 ARTICLES -->
+    <div class="lg:col-span-3 grid grid-cols-1 sm:grid-cols-2 gap-8">
+
+        {% for article in articles|slice:"1:" %}
+        <a
+            href="{% url 'article_detail' article.id %}"
+            class="group bg-white rounded-2xl shadow hover:shadow-xl transition overflow-hidden"
+        >
+
+            {% if article.image_url %}
+            <img src="{{ article.image_url }}" class="w-full h-44 object-cover">
+            {% endif %}
+
+            <div class="p-5">
+                <h3 class="text-lg font-semibold text-gray-900 line-clamp-2 group-hover:text-blue-600">
+                    {{ article.title_rewritten }}
+                </h3>
+                <p class="text-sm text-gray-600 mt-2 line-clamp-3">
+                    {{ article.description_rewritten }}
+                </p>
+            </div>
+        </a>
+        {% endfor %}
+
+    </div>
+
+    <!-- 📈 TRENDING SIDEBAR -->
+    <aside class="bg-white rounded-2xl shadow p-6 h-fit sticky top-24">
+        <h3 class="text-lg font-bold mb-4">🔥 Trending</h3>
+
+        <ul class="space-y-4">
+            {% for article in articles|slice:":6" %}
+            <li>
+                <a href="{% url 'article_detail' article.id %}" class="text-sm font-medium hover:text-blue-600 line-clamp-2">
+                    {{ article.title_rewritten }}
+                </a>
+            </li>
+            {% endfor %}
+        </ul>
+    </aside>
+
+</div>
+
+{% endblock %}

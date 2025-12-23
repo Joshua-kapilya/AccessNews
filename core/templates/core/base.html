@@ -1,0 +1,89 @@
+{% load static %}
+
+<!DOCTYPE html>
+<html lang="en">
+<head>
+    <meta charset="UTF-8">
+    <title>{% block title %}Access News{% endblock %}</title>
+
+    <meta name="viewport" content="width=device-width, initial-scale=1">
+
+    <!-- Tailwind CDN -->
+    <script src="https://cdn.tailwindcss.com"></script>
+
+    <style>
+        /* Prevent layout shifts */
+        img { display: block; }
+    </style>
+</head>
+
+<body class="bg-gray-100 text-gray-800 flex flex-col min-h-screen">
+
+<!-- ================= HEADER ================= -->
+<header class="bg-white shadow sticky top-0 z-50">
+    <div class="max-w-7xl mx-auto px-4 sm:px-6 py-4 flex items-center justify-between">
+
+        <a href="/" class="flex items-center gap-3">
+    <!-- Logo Image -->
+    <img src="{% static 'images/logo.png' %}" 
+         alt="Zambia News Logo"
+         class="h-9 w-9 sm:h-10 sm:w-10 object-contain">
+
+    <!-- Site Name -->
+    <span class="text-xl sm:text-2xl font-bold text-gray-900 tracking-tight">
+        Access <span class="text-blue-600">News</span>
+    </span>
+</a>
+
+
+        <!-- Desktop Nav -->
+        <nav class="hidden md:flex space-x-6 text-gray-700 font-medium">
+            <a href="/" class="hover:text-blue-600">Home</a>
+            <a href="#" class="hover:text-blue-600">Politics</a>
+            <a href="#" class="hover:text-blue-600">Business</a>
+            <a href="#" class="hover:text-blue-600">Sports</a>
+        </nav>
+
+        <!-- Mobile Menu Button -->
+        <button id="menuBtn" class="md:hidden text-gray-700 text-2xl">
+            ☰
+        </button>
+    </div>
+
+    <!-- Mobile Menu -->
+    <div id="mobileMenu" class="hidden md:hidden bg-white border-t">
+        <nav class="flex flex-col px-6 py-4 space-y-3 font-medium text-gray-700">
+            <a href="/" class="hover:text-blue-600">Home</a>
+            <a href="#">Politics</a>
+            <a href="#">Business</a>
+            <a href="#">Sports</a>
+        </nav>
+    </div>
+</header>
+
+<!-- ================= MAIN ================= -->
+<main class="flex-1">
+    {% block content %}{% endblock %}
+</main>
+
+<!-- ================= FOOTER ================= -->
+<footer class="bg-white border-t mt-10">
+    <div class="max-w-7xl mx-auto px-6 py-6 text-center text-sm text-gray-500">
+        © {{ now|date:"Y" }} Zambia News  
+        <br class="sm:hidden">
+        Rewritten & hosted internally
+    </div>
+</footer>
+
+<!-- ================= JS ================= -->
+<script>
+    const btn = document.getElementById("menuBtn");
+    const menu = document.getElementById("mobileMenu");
+
+    btn.addEventListener("click", () => {
+        menu.classList.toggle("hidden");
+    });
+</script>
+
+</body>
+</html>
