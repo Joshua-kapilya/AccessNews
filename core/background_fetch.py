@@ -51,7 +51,6 @@ def fetch_articles():
 
         time.sleep(FETCH_INTERVAL)
 
-
 def start_background_fetch():
     thread = threading.Thread(target=fetch_articles, daemon=True)
     thread.start()
