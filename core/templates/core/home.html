@@ -24,6 +24,24 @@
 }
 </style>
 
+<!-- 🗂 CATEGORY MENU -->
+<div class="flex flex-wrap gap-2 mb-6">
+    {% for cat in categories %}
+        <a href="{% url 'home' %}?category={{ cat }}"
+           class="px-4 py-2 rounded-full text-sm font-medium transition
+           {% if selected_category == cat %} bg-blue-600 text-white {% else %} bg-gray-200 text-gray-800 hover:bg-gray-300 {% endif %}">
+            {{ cat }}
+        </a>
+    {% endfor %}
+
+    <!-- Show 'All' link -->
+    <a href="{% url 'home' %}"
+       class="px-4 py-2 rounded-full text-sm font-medium transition
+       {% if not selected_category %} bg-blue-600 text-white {% else %} bg-gray-200 text-gray-800 hover:bg-gray-300 {% endif %}">
+        All
+    </a>
+</div>
+
 <!-- 📰 FEATURED HEADLINE -->
 {% if articles %}
 <a href="{% url 'article_detail' articles.0.id %}" class="block mb-10 group">
