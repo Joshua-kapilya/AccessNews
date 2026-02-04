@@ -34,7 +34,6 @@
         </a>
     {% endfor %}
 
-    <!-- Show 'All' link -->
     <a href="{% url 'home' %}"
        class="px-4 py-2 rounded-full text-sm font-medium transition
        {% if not selected_category %} bg-blue-600 text-white {% else %} bg-gray-200 text-gray-800 hover:bg-gray-300 {% endif %}">
@@ -45,11 +44,11 @@
 <!-- 📰 FEATURED HEADLINE -->
 {% if articles %}
 <a href="{% url 'article_detail' articles.0.id %}" class="block mb-10 group">
-    <div class="relative rounded-3xl overflow-hidden shadow-lg">
+    <div class="relative rounded-3xl overflow-hidden shadow-lg hover:shadow-2xl transition">
         {% if articles.0.image_url %}
         <img src="{{ articles.0.image_url }}" class="w-full h-[320px] object-cover">
         {% endif %}
-        <div class="absolute inset-0 bg-gradient-to-t from-black/70 to-transparent p-6 flex items-end">
+        <div class="absolute inset-0 bg-gradient-to-t from-black/70 to-transparent p-6 flex flex-col justify-end">
             <div>
                 <span class="bg-red-600 text-white px-3 py-1 rounded-full text-xs font-semibold">
                     FEATURED
@@ -60,6 +59,17 @@
                 <p class="text-gray-200 mt-2 max-w-2xl line-clamp-2">
                     {{ articles.0.description_rewritten }}
                 </p>
+                <div class="flex items-center text-gray-300 text-xs mt-2 space-x-4">
+                    <div class="flex items-center space-x-1">
+                        👁️ <span>{{ articles.0.views }}</span>
+                    </div>
+                    <div class="flex items-center space-x-1 text-green-500">
+                        👍 <span>{{ articles.0.likes }}</span>
+                    </div>
+                    <div class="flex items-center space-x-1 text-red-500">
+                        👎 <span>{{ articles.0.dislikes }}</span>
+                    </div>
+                </div>
             </div>
         </div>
     </div>
@@ -73,10 +83,8 @@
     <div class="lg:col-span-3 grid grid-cols-1 sm:grid-cols-2 gap-8">
 
         {% for article in articles|slice:"1:" %}
-        <a
-            href="{% url 'article_detail' article.id %}"
-            class="group bg-white rounded-2xl shadow hover:shadow-xl transition overflow-hidden"
-        >
+        <a href="{% url 'article_detail' article.id %}"
+           class="group bg-white rounded-2xl shadow hover:shadow-xl transition overflow-hidden">
 
             {% if article.image_url %}
             <img src="{{ article.image_url }}" class="w-full h-44 object-cover">
@@ -89,6 +97,18 @@
                 <p class="text-sm text-gray-600 mt-2 line-clamp-3">
                     {{ article.description_rewritten }}
                 </p>
+                <div class="flex flex-wrap items-center text-xs text-gray-500 mt-2 space-x-4">
+                    <span>Category: {{ article.category }}</span>
+                    <div class="flex items-center space-x-1">
+                        👁️ <span>{{ article.views }}</span>
+                    </div>
+                    <div class="flex items-center space-x-1 text-green-500">
+                        👍 <span>{{ article.likes }}</span>
+                    </div>
+                    <div class="flex items-center space-x-1 text-red-500">
+                        👎 <span>{{ article.dislikes }}</span>
+                    </div>
+                </div>
             </div>
         </a>
         {% endfor %}
@@ -105,6 +125,11 @@
                 <a href="{% url 'article_detail' article.id %}" class="text-sm font-medium hover:text-blue-600 line-clamp-2">
                     {{ article.title_rewritten }}
                 </a>
+                <div class="flex items-center text-xs text-gray-400 space-x-4 mt-1">
+                    <span>👁️ {{ article.views }}</span>
+                    <span class="text-green-500">👍 {{ article.likes }}</span>
+                    <span class="text-red-500">👎 {{ article.dislikes }}</span>
+                </div>
             </li>
             {% endfor %}
         </ul>

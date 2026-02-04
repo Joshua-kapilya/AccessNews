@@ -21,33 +21,44 @@
 
 <!-- ================= HEADER ================= -->
 <header class="bg-white shadow sticky top-0 z-50">
-    <div class="max-w-7xl mx-auto px-4 sm:px-6 py-4 flex items-center justify-between">
+    <div class="max-w-7xl mx-auto px-4 sm:px-6 py-4 flex items-center justify-between gap-4">
 
+        <!-- Logo -->
         <a href="/" class="flex items-center gap-3">
-    <!-- Logo Image -->
-    <img src="{% static 'images/logo.png' %}" 
-         alt="Zambia News Logo"
-         class="h-9 w-9 sm:h-10 sm:w-10 object-contain">
+            <img src="{% static 'images/logo.png' %}" 
+                 alt="Zambia News Logo"
+                 class="h-9 w-9 sm:h-10 sm:w-10 object-contain">
+            <span class="text-xl sm:text-2xl font-bold text-gray-900 tracking-tight">
+                Access <span class="text-blue-600">News</span>
+            </span>
+        </a>
 
-    <!-- Site Name -->
-    <span class="text-xl sm:text-2xl font-bold text-gray-900 tracking-tight">
-        Access <span class="text-blue-600">News</span>
-    </span>
-</a>
+        <!-- Desktop Nav + Search -->
+        <div class="hidden md:flex items-center gap-6">
 
+            <nav class="flex space-x-6 text-gray-700 font-medium">
+                <a href="/" class="hover:text-blue-600">Home</a>
+                <a href="#" class="hover:text-blue-600">Contact</a>
+                <a href="{% url 'privacy_policy' %}" class="hover:text-blue-600">Privacy Policy</a>
+                <a href="{% url 'about_us' %}" class="hover:text-blue-600">About us</a>
+            </nav>
 
-        <!-- Desktop Nav -->
-        <nav class="hidden md:flex space-x-6 text-gray-700 font-medium">
-            <a href="/" class="hover:text-blue-600">Home</a>
-            <a href="#" class="hover:text-blue-600">Contact</a>
-            <a href=" {% url 'privacy_policy' %} " class="hover:text-blue-600">Privacy Policy</a>
-            <a href=" {% url 'about_us' %} " class="hover:text-blue-600">About us</a>
-        </nav>
+            <!-- Search Form -->
+            <form action="{% url 'search_articles' %}" method="GET" class="relative">
+                <input type="text" name="q" placeholder="Search articles..."
+                       class="rounded-full border border-gray-300 px-4 py-1 pl-10 focus:ring-blue-500 focus:border-blue-500">
+                <button type="submit" class="absolute left-3 top-1.5 text-gray-400">
+                    🔍
+                </button>
+            </form>
+
+        </div>
 
         <!-- Mobile Menu Button -->
         <button id="menuBtn" class="md:hidden text-gray-700 text-2xl">
             ☰
         </button>
+
     </div>
 
     <!-- Mobile Menu -->
@@ -57,6 +68,13 @@
             <a href="#">Politics</a>
             <a href="#">Business</a>
             <a href="#">Sports</a>
+
+            <!-- Mobile Search -->
+            <form action="{% url 'search_articles' %}" method="GET" class="mt-3 flex items-center">
+                <input type="text" name="q" placeholder="Search..."
+                       class="flex-1 rounded-full border border-gray-300 px-4 py-1 focus:ring-blue-500 focus:border-blue-500">
+                <button type="submit" class="ml-2 text-gray-400 text-lg">🔍</button>
+            </form>
         </nav>
     </div>
 </header>

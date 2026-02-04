@@ -12,7 +12,7 @@ RSS_FEEDS = [
 ]
 
 FETCH_INTERVAL = 60 * 5  # every 5 minutes
-DAILY_MAIL_LOGO = "/static/media/logo.png"
+DAILY_MAIL_LOGO = "/static/images/logo.png"
 
 # 🔹 Keyword lists per category
 CATEGORY_KEYWORDS = {
@@ -85,3 +85,4 @@ def fetch_articles():
 def start_background_fetch():
     thread = threading.Thread(target=fetch_articles, daemon=True)
     thread.start()
+                                                                                                                                                                                                                                                                                                                                                                                                                                                                                                                                                                                                                                                                                                                                                                                                                                                                                                                                                                                                                                                                                                                                                                                                                                     
